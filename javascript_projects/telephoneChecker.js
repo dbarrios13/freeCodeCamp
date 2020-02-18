@@ -1,21 +1,18 @@
 const telephoneCheck = str => {
-    const phone = str.match(/[0-9()]/g);
+    const phone = str.match(/[0-9]/g);
     const regex = /([1]?)(\(\d{3}\))([ -]?)(\d{3})([ -]?)(\d{4})$/;
     const regex2 = /([1]?)([^(])(\d{3})([^)])([ -]?)(\d{3})([ -]?)(\d{4})$/;
-    const regex3 = /^([1])([^(])(\d{3})([^)])([ -]?)(\d{3})([ -]?)(\d{4})$/;
-    console.log(str.match(regex3))
+    const regex4 = /^\d{3}([ -]?)\d{3}([ -]?)\d{4}$/;
+
     if (phone.length < 10 || phone.length > 13 || str.match(/[^- )(0-9]/g)) {
         return false;
-    } else if (str.match(regex) || str.match(regex2)) {
-
-    } else {    
+    } else if (str.match(regex) || str.match(regex2) || str.match(regex4)) {
+        if ((phone.length === 11 && parseInt(str[0]) === 1) || phone.length === 10) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
         return false;
     }
 };
-
-// telephoneCheck('555-555-5555')
-// telephoneCheck('(555) 555 5555')
-telephoneCheck('1 (555) 555 5555')
-telephoneCheck('2 (555) 555 5555')
-telephoneCheck('1 (555 555 5555')
-telephoneCheck('(555 555 5555)')
